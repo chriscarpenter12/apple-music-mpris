@@ -1,0 +1,11 @@
+::-webkit-scrollbar { display: none; }
+
+/*Hide 'Open in iTunes' link*/
+.web-navigation .web-navigation__native-upsell {
+  display: none;
+}
+
+/*Hide footer*/
+footer.dt-footer {
+  display: none;
+}
