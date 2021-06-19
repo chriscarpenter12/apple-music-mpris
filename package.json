@@ -14,8 +14,8 @@
     "init": "install",
     "start": "electron ./src",
     "pack": "electron-builder --dir",
-    "build": "electron-builder --linux",
-    "install:linux": "sudo pacman -U dist/apple-music-mpris-0.0.9.pacman"
+    "build": "electron-builder build",
+    "build:no-publish": "npm run build -- --publish=never"
   },
   "dependencies": {
     "electron-is-dev": "^2.0.0",
