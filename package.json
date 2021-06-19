@@ -1,59 +1,62 @@
 {
-  "author": "Jarek Toro",
-  "homepage": "https://github.com/JarekToro/Apple-Music-Mpris",
+  "author": {
+    "name": "Chris Carpenter",
+    "email": "chriscarpenter12@gmail.com"
+  },
+  "homepage": "https://github.com/chriscarpenter12/apple-music-mpris",
   "name": "apple-music-mpris",
   "productName": "Apple Music",
-  "version": "0.0.9",
-  "description": "rm .git ",
+  "version": "0.1.0-0",
+  "description": "Apple Music Electron Wrapper with MPRIS Support",
   "license": "MIT",
-  "buildResources": "assets",
+  "main": "src/index.js",
   "scripts": {
     "init": "install",
-    "start": "electron .",
+    "start": "electron ./src",
     "pack": "electron-builder --dir",
-    "build:linux": "electron-builder --linux",
-    "install:linux": "sudo pacman -U dist/apple-music-mpris-0.0.9.pacman"
+    "build": "electron-builder build --publish=never",
+    "release": "electron-builder build --publish always"
   },
   "dependencies": {
-    "mpris-service": "^2.1.0",
-    "source-map-support": "^0.5.16",
-    "v8-compile-cache": "^2.3.0"
+    "electron-is-dev": "^2.0.0",
+    "electron-preferences": "^2.3.2",
+    "electron-window-state": "^5.0.3",
+    "mpris-service": "^2.1.0"
   },
   "devDependencies": {
-    "electron": "git+https://github.com/castlabs/electron-releases.git#v12.0.5-wvvmp",
-    "electron-builder": "^22.10.5",
-    "electron-rebuild": "^2.3.2",
-    "electron-webpack": "^2.8.2",
-    "musickit-typescript": "^1.2.4",
-    "webpack": "~4.42.1"
+    "electron": "git+https://github.com/castlabs/electron-releases.git#v13.1.2-wvvmp",
+    "electron-builder": "^22.11.7"
   },
+  "buildResources": "assets",
   "build": {
-    "electronVersion": "11.4.2",
+    "appId": "apple-music",
+    "electronVersion": "13.1.2-wvvmp",
     "electronDownload": {
-      "version": "12.0.5-wvvmp",
+      "version": "13.1.2-wvvmp",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
-    "appId": "apple-music",
     "extends": null,
     "files": [
-      "**/*",
+      "src/**/*",
+      "assets/*.css",
       "assets/icon.*"
     ],
     "linux": {
       "target": [
+        "AppImage",
+        "tar.gz",
+        "deb",
+        "rpm",
         "pacman"
       ],
-      "maintainer": "jayrok",
-      "executableName": "applemusic",
+      "executableName": "apple-music",
       "category": "AudioVideo",
       "icon": "./assets/icon.icns",
-      "desktop": "./assets/applemusic.desktop"
+      "desktop": "./assets/apple-music.desktop"
     },
-    "win": {
-      "target": [
-        "nsis"
-      ],
-      "icon": "./assets/icon.ico"
+    "publish": {
+      "provider": "github",
+      "releaseType": "release"
     }
   }
 }

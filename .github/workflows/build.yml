@@ -1,0 +1,33 @@
+name: Build
+on:
+  - push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y rpm libarchive-tools
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - run: npm ci
+      - name: non-main branch build
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: npm run build
+      - name: version
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: phips28/gh-action-bump-version@master
+        with:
+          tag-prefix: 'v'
+          commit-message: 'CI: release version {{version}} [skip ci]'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: main branch build
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
