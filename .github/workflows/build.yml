@@ -14,6 +14,20 @@ jobs:
         with:
           node-version: "16"
       - run: npm ci
-      - name: build non-main
+      - name: non-main branch build
         if: ${{ github.ref != 'refs/heads/main' }}
-        run: npm run build:no-publish
+        run: npm run build
+      - name: version
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: phips28/gh-action-bump-version@master
+        with:
+          tag-prefix: 'v'
+          commit-message: 'CI: release version {{ version }} [skip ci]'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: main branch build
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
