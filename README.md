@@ -1,8 +1,17 @@
-# Apple-Music-Mpris
-Unofficial Apple Music application for Linux. It integrates with the freedesktop Mpris Dbus interface
+# Apple MusicMpris
 
-> In the image you will notice the widget in the top. Because it uses Mpris interface it can be controlled from any mpris compatible player
+Unofficial Apple Music application for Linux. It integrates with the freedesktop Mpris Dbus interface to provide external media playback controls.
 
-![alt text](.hosted/assets/demo.png "Preview Image as of v0.9")
+Supports switching between light and dark variants in application preferences (`Ctrl`+`,`).
 
+## Screenshots
 
+![light-application](docs/light-application.png)
+
+![light-notification-controls](docs/light-notification-controls.png)
+
+![light-application-preferences](docs/light-application-preferences.png)
+
+![dark-application](docs/dark-application.png)
+
+![dark-notification-controls](docs/dark-notification-controls.png)
