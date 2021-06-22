@@ -58,11 +58,8 @@ const createWindow = async () => {
     backgroundColor: preferences.preferences.theme.theme === 'dark' ? '#1f1f1f' : '#ffffff',
     darkTheme: preferences.preferences.theme.theme === 'dark',
     webPreferences: {
-      plugins: true,
       preload: path.join(__dirname, 'preload.js'),
-      // allowRunningInsecureContent: true,
       contextIsolation: false,
-      // nativeWindowOpen: true,
       backgroundThrottling: false,
       autoplayPolicy: 'no-user-gesture-required'
     }

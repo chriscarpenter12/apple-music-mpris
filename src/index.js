@@ -1,3 +1,4 @@
+require('v8-compile-cache');
 const { app } = require('electron');
 const { createWindow } = require('./window');
 const { createMpris } = require('./mpris_interop');
@@ -22,14 +23,10 @@ app.on('widevine-error', (error) => {
 });
 
 app.on('window-all-closed', () => {
-  // mpris.metadata = { 'mpris:trackid': '/org/mpris/MediaPlayer2/TrackList/NoTrack' };
-  // mpris.playbackStatus = 'Stopped';
   app.quit();
 });
 
 app.on('quit', () => {
-  // mpris.metadata = { 'mpris:trackid': '/org/mpris/MediaPlayer2/TrackList/NoTrack' };
-  // mpris.playbackStatus = 'Stopped';
   app.quit();
 });
 
