@@ -1,4 +1,6 @@
-::-webkit-scrollbar { display: none; }
+::-webkit-scrollbar {
+  display: none;
+}
 
 /*Hide 'Open in iTunes' link*/
 .web-navigation .web-navigation__native-upsell {

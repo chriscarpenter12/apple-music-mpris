@@ -6,8 +6,8 @@ const preferences = new ElectronPreferences({
   dataStore: path.resolve(app.getPath('userData'), 'preferences.json'),
   defaults: {
     theme: {
-      theme: 'system'
-    }
+      theme: 'system',
+    },
   },
   sections: [
     {
@@ -25,16 +25,16 @@ const preferences = new ElectronPreferences({
                 options: [
                   { label: 'System (default)', value: 'system' },
                   { label: 'Light', value: 'light' },
-                  { label: 'Dark', value: 'dark' }
+                  { label: 'Dark', value: 'dark' },
                 ],
-                help: 'Changing the theme requires an application relaunch to apply window frame theme.'
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ]
+                help: 'Changing the theme requires an application relaunch to apply window frame theme.',
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
 });
 
 nativeTheme.themeSource = preferences.preferences.theme.theme;
@@ -43,5 +43,5 @@ preferences.on('save', (preferences) => {
 });
 
 module.exports = {
-  preferences
+  preferences,
 };
