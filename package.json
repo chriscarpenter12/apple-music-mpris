@@ -11,7 +11,10 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "init": "install",
+    "format": "prettier .",
+    "format:check": "npm run format -- --list-different",
+    "format:fix": "npm run format -- --write",
+    "lint": "eslint .",
     "start": "electron ./src",
     "pack": "electron-builder --dir",
     "build": "electron-builder build --publish=never",
@@ -26,7 +29,10 @@
   },
   "devDependencies": {
     "electron": "git+https://github.com/castlabs/electron-releases.git#v13.1.2-wvvmp",
-    "electron-builder": "^22.11.7"
+    "electron-builder": "^22.11.7",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.3.1"
   },
   "buildResources": "assets",
   "build": {

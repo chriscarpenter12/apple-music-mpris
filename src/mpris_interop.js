@@ -1,7 +1,7 @@
 const Player = require('mpris-service');
 
 let mpris = {
-  instance: undefined
+  instance: undefined,
 };
 
 const createMpris = async () => {
@@ -10,17 +10,17 @@ const createMpris = async () => {
     identity: 'Apple Music',
     supportedUriSchemes: [],
     supportedMimeTypes: [],
-    supportedInterfaces: ['player']
+    supportedInterfaces: ['player'],
   });
 
   let pos_atr = { durationInMillis: 0 };
-  let currentPlayBackProgress = "0";
+  let currentPlayBackProgress = '0';
 
   mpris.instance.getPosition = () => {
     const durationInMicro = pos_atr.durationInMillis * 1000;
     const percentage = parseFloat(currentPlayBackProgress) || 0;
     return durationInMicro * percentage;
-  }
+  };
 
   mpris.instance.canQuit = true;
   mpris.instance.canControl = true;
@@ -33,5 +33,5 @@ const createMpris = async () => {
 
 module.exports = {
   mpris,
-  createMpris
-}
+  createMpris,
+};

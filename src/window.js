@@ -11,7 +11,7 @@ let mainWindowState;
 
 function setPlaybackIfNeeded(status) {
   if (mpris.instance.playbackStatus === status) {
-    return
+    return;
   }
   mpris.instance.playbackStatus = status;
 }
@@ -23,7 +23,7 @@ const playbackStatusStop = 'Stopped';
 const createWindow = async () => {
   mainWindowState = windowStateKeeper({
     defaultWidth: 1024,
-    defaultHeight: 768
+    defaultHeight: 768,
   });
 
   const menu = [
@@ -35,13 +35,13 @@ const createWindow = async () => {
           accelerator: 'Ctrl+,',
           click: async () => {
             preferences.show();
-          }
+          },
         },
         { type: 'separator' },
-        { role: 'quit' }
-      ]
+        { role: 'quit' },
+      ],
     },
-    { role: 'viewMenu' }
+    { role: 'viewMenu' },
   ];
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
 
@@ -61,8 +61,8 @@ const createWindow = async () => {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: false,
       backgroundThrottling: false,
-      autoplayPolicy: 'no-user-gesture-required'
-    }
+      autoplayPolicy: 'no-user-gesture-required',
+    },
   });
 
   if (isDev) {
@@ -98,44 +98,64 @@ const createWindow = async () => {
 
   ipcMain.on('mediaItemStateDidChange', (item, a) => {
     updateMetaData(a);
-  })
+  });
 
   ipcMain.on('playbackStateDidChange', (item, a) => {
     switch (a) {
       case 0:
-        if (isDev) { console.log('NONE'); }
+        if (isDev) {
+          console.log('NONE');
+        }
         setPlaybackIfNeeded(playbackStatusPause);
         break;
       case 1:
-        if (isDev) { console.log('loading'); }
+        if (isDev) {
+          console.log('loading');
+        }
         setPlaybackIfNeeded(playbackStatusPause);
         break;
       case 2:
-        if (isDev) { console.log('playing'); }
+        if (isDev) {
+          console.log('playing');
+        }
         setPlaybackIfNeeded(playbackStatusPlay);
         break;
       case 3:
-        if (isDev) { console.log('paused'); }
+        if (isDev) {
+          console.log('paused');
+        }
         setPlaybackIfNeeded(playbackStatusPause);
         break;
       case 4:
-        if (isDev) { console.log('stopped'); }
+        if (isDev) {
+          console.log('stopped');
+        }
         setPlaybackIfNeeded(playbackStatusStop);
         break;
       case 5:
-        if (isDev) { console.log('ended'); }
+        if (isDev) {
+          console.log('ended');
+        }
         break;
       case 6:
-        if (isDev) { console.log('seeking'); }
+        if (isDev) {
+          console.log('seeking');
+        }
         break;
       case 7:
-        if (isDev) { console.log('waiting'); }
+        if (isDev) {
+          console.log('waiting');
+        }
         break;
       case 8:
-        if (isDev) { console.log('stalled'); }
+        if (isDev) {
+          console.log('stalled');
+        }
         break;
       case 9:
-        if (isDev) { console.log('completed'); }
+        if (isDev) {
+          console.log('completed');
+        }
         break;
     }
 
@@ -155,31 +175,30 @@ const createWindow = async () => {
   await mainWindow.loadURL('https://music.apple.com');
 
   async function updateMetaData(attributes) {
-    let m = {'mpris:trackid': '/org/mpris/MediaPlayer2/TrackList/NoTrack'}
+    let m = { 'mpris:trackid': '/org/mpris/MediaPlayer2/TrackList/NoTrack' };
     if (attributes == null) {
-      return
-    } else if (attributes.playParams.id === 'no-id-found') {
-
+      return;
+      // } else if (attributes.playParams.id === 'no-id-found') {
     } else {
-      let url = `${attributes.artwork.url.replace('/{w}x{h}bb', '/35x35bb')}`
-      url = `${url.replace('/2000x2000bb', '/35x35bb')}`
+      let url = `${attributes.artwork.url.replace('/{w}x{h}bb', '/35x35bb')}`;
+      url = `${url.replace('/2000x2000bb', '/35x35bb')}`;
       m = {
-        'mpris:trackid': mpris.instance.objectPath(`track/${attributes.playParams.id.replace(/[\.]+/g, '')}`),
+        'mpris:trackid': mpris.instance.objectPath(`track/${attributes.playParams.id.replace(/[.]+/g, '')}`),
         'mpris:length': attributes.durationInMillis * 1000, // In microseconds
         'mpris:artUrl': url,
         'xesam:title': `${attributes.name}`,
         'xesam:album': `${attributes.albumName}`,
-        'xesam:artist': [`${attributes.artistName}`,],
-        'xesam:genre': attributes.genreNames
-      }
+        'xesam:artist': [`${attributes.artistName}`],
+        'xesam:genre': attributes.genreNames,
+      };
     }
     if (mpris.instance.metadata['mpris:trackid'] === m['mpris:trackid']) {
-      return
+      return;
     }
-    mpris.instance.metadata = m
+    mpris.instance.metadata = m;
   }
-}
+};
 
 module.exports = {
-  createWindow
-}
+  createWindow,
+};
