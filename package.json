@@ -6,7 +6,7 @@
   "homepage": "https://github.com/chriscarpenter12/apple-music-mpris",
   "name": "apple-music-mpris",
   "productName": "Apple Music",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Apple Music Electron Wrapper with MPRIS Support",
   "license": "MIT",
   "main": "src/index.js",
